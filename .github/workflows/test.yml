@@ -30,12 +30,12 @@ jobs:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
           
       - name: Set env var
-        run: echo "::set-env name=HELLO::$(doppler secrets get HELLO --plain)"
+        run: echo "HELLO=$(doppler secrets get HELLO --plain)" >> $GITHUB_ENV
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
           
       - name: Echo env var
-        run: echo "This is HELLO -- $HELLO"
+        run: echo "HELLO -- $HELLO"
 
       # Runs a single command using the runners shell
       - name: Run a one-line script

@@ -35,7 +35,7 @@ jobs:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
           
       - name: Echo env var
-        run: echo "This is HELLO: $HELLO"
+        run: echo "This is HELLO -- $HELLO"
 
       # Runs a single command using the runners shell
       - name: Run a one-line script

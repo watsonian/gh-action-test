@@ -30,13 +30,11 @@ jobs:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
           
       - name: Set env var
-        run: echo "HELLO=$(doppler secrets get HELLO --plain)" >> $GITHUB_ENV
+        run: |
+          echo "HELLO=$(doppler secrets get HELLO --plain)" >> $GITHUB_ENV
+          echo "::add-mask::$HELLO"
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
-          
-      - name: Mask environment variables
-        run: |
-          echo "::add-mask::$HELLO"
           
       - name: Echo env var
         run: echo "HELLO -- $HELLO"

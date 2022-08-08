@@ -60,6 +60,8 @@ jobs:
       
       - id: step1
         run: echo "::set-output name=template::$(doppler secrets substitute ${GITHUB_WORKSPACE}/file.tmpl)"
+        env:
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
   job2:
     runs-on: ubuntu-latest
     needs: job1

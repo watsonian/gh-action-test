@@ -57,7 +57,11 @@ jobs:
       - uses: dopplerhq/cli-action@v1
       
       - id: step1
-        run: echo "TEMPLATE=$(doppler secrets substitute ${GITHUB_WORKSPACE}/file.tmpl)" >> $GITHUB_ENV
+        run: |
+          TEMPLATE=$(doppler secrets substitute ${GITHUB_WORKSPACE}/file.tmpl)
+          echo "TEMPLATE<<EOF" >> $GITHUB_ENV
+          echo "$TEMPLATE" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
         env:
           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
   job2:

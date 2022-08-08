@@ -54,6 +54,10 @@ jobs:
     outputs:
       template: ${{ steps.step1.outputs.template }}
     steps:
+      - uses: actions/checkout@v3
+      
+      - uses: dopplerhq/cli-action@v1
+      
       - id: step1
         run: echo "::set-output name=template::$(doppler secrets substitute ${GITHUB_WORKSPACE}/file.tmpl)"
   job2:

@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install xmllint
+      - name: Install jq
         run: sudo apt-get install -y jq
-      - name: add secrets to GITHUB_ENV
+      - name: Add secrets to GITHUB_ENV
         shell: bash
         run: |
           echo "$SECRETS_CONTEXT"
@@ -28,8 +28,8 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
           
-      - name: show env vars
-        run: env
+      - name: Show env vars
+        run: env | grep DOPPLER
           
 #       - name: Echo env var
 #         run: echo "HELLO -- $HELLO"

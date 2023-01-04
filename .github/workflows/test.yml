@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: echo "$SECRETS_CONTEXT"
         env:
-          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+          SECRETS_CONTEXT: ${{ secrets }}
           
 #       - name: Set env var
 #         run: |

@@ -18,18 +18,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: view the secrets context
+      - name: Install xmllint
+        run: sudo apt-get install -y jq
+      - name: add secrets to GITHUB_ENV
         shell: bash
-        run: echo "$SECRETS_CONTEXT"
+        run: |
+          echo "$SECRETS_CONTEXT"
+          echo "$SECRETS_CONTEXT" | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" >> $GITHUB_ENV
         env:
-          SECRETS_CONTEXT: ${{ secrets }}
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
           
-#       - name: Set env var
-#         run: |
-#           echo "HELLO=$(doppler secrets get HELLO --plain)" >> $GITHUB_ENV
-#           echo "::add-mask::$HELLO"
-#         env:
-#           DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+      - name: show env vars
+        run: env
           
 #       - name: Echo env var
 #         run: echo "HELLO -- $HELLO"

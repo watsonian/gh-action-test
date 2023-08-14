@@ -17,7 +17,7 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-    - uses: dopplerhq/secrets-fetch-action@v1.1.1
+    - uses: dopplerhq/secrets-fetch-action@v1.1.2
       id: doppler
       with:
         doppler-token: ${{ secrets.DOPPLER_SERVICE_ACCOUNT_TOKEN }}

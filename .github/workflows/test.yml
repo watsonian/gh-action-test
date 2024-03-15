@@ -17,10 +17,12 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-    - uses: dopplerhq/secrets-fetch-action@v1.1.2
+    - uses: jasonroelofs/secrets-fetch-action@do-not-redact-unmasked-secrets
       id: doppler
       with:
         doppler-token: ${{ secrets.DOPPLER_SERVICE_ACCOUNT_TOKEN }}
         doppler-project: example
         doppler-config: dev
     - run: echo "DOPPLER_PROJECT is ${{ steps.doppler.outputs.DOPPLER_PROJECT }} (Doppler meta environment variables are unmasked)"
+    - run: echo "HOSTNAME is ${{ steps.doppler.outputs.HOSTNAME }} (should be unmasked)"
+    - run: echo "STRIPE_API_KEY is ${{ steps.doppler.outputs.STRIPE_API_KEY }} (should be masked)"

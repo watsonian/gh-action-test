@@ -10,7 +10,7 @@ jobs:
     - name: Install Doppler CLI
       uses: dopplerhq/cli-action@v1
     - name: Upload Secrets to Doppler
-      run: doppler secrets upload --project "$DOPPLER_TARGET_PROJECT" --config "$DOPPLER_TARGET_CONFIG"  --silent <(echo "$GITHUB_SECRETS")
+      run: doppler secrets upload --project "$DOPPLER_TARGET_PROJECT" --config "$DOPPLER_TARGET_CONFIG"  --silent <(echo "$GITHUB_SECRETS" | jq '. | del(.github_token) | with_entries( .key |= ascii_upcase )')
       shell: bash
       env:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}

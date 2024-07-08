@@ -1,0 +1,17 @@
+on: workflow_dispatch
+
+jobs:
+  export-to-doppler:
+    runs-on: ubuntu-latest
+    name: export GitHub secrets to Doppler
+    steps:
+    - name: Install Doppler CLI
+      uses: dopplerhq/cli-action@v1
+    - name: Upload Secrets to Doppler
+      run: doppler secrets upload --project "$DOPPLER_TARGET_PROJECT" --config "$DOPPLER_TARGET_CONFIG"  --silent <(echo "$GITHUB_SECRETS")
+      shell: bash
+      env:
+        DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+        DOPPLER_TARGET_PROJECT: ${{ secrets.DOPPLER_TARGET_PROJECT }}
+        DOPPLER_TARGET_CONFIG: ${{ secrets.DOPPLER_TARGET_CONFIG }}
+        GITHUB_SECRETS: ${{ toJson(secrets) }}

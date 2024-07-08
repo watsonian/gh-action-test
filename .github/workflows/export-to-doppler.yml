@@ -1,3 +1,5 @@
+name: Export Secrets to Doppler
+
 on: workflow_dispatch
 
 jobs:
